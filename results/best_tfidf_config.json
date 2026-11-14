@@ -1,0 +1,11 @@
+{
+  "clf": "lr",
+  "C": 4,
+  "class_weight": "balanced",
+  "ngram": [
+    1,
+    2
+  ],
+  "char_wb_2_5": true,
+  "min_df": 2
+}

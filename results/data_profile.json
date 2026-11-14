@@ -1,0 +1,39 @@
+{
+  "train": {
+    "n_rows": 7401,
+    "columns": [
+      "reviews",
+      "sentiments"
+    ],
+    "missing_or_empty_reviews": 0,
+    "exact_duplicate_reviews": 216,
+    "normalised_duplicate_reviews": 221,
+    "words_mean": 56.7,
+    "words_median": 42,
+    "words_p95": 143,
+    "words_max": 1066,
+    "chars_mean": 300.9,
+    "label_counts": {
+      "0": 1082,
+      "1": 6319
+    },
+    "positive_rate": 0.8538,
+    "duplicate_groups_with_conflicting_labels": 0
+  },
+  "test": {
+    "n_rows": 1851,
+    "columns": [
+      "reviews"
+    ],
+    "missing_or_empty_reviews": 0,
+    "exact_duplicate_reviews": 21,
+    "normalised_duplicate_reviews": 22,
+    "words_mean": 55.4,
+    "words_median": 40,
+    "words_p95": 148,
+    "words_max": 749,
+    "chars_mean": 295.3,
+    "reviews_also_in_train_normalised": 104,
+    "has_labels": false
+  }
+}
