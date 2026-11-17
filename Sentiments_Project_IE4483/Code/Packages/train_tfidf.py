@@ -108,7 +108,7 @@ def main():
                                "infer_seconds_val": round(infer_s, 3), "n_features": Xtr.shape[1],
                                "cv5_macro_f1_mean": best.macro_f1_mean, "cv5_macro_f1_std": best.macro_f1_std})
         if kind == "lr":
-            pd.DataFrame({"row_id": df["row_id"].values[va], "reviews": X_text[va], "y_true": y[va],
+            pd.DataFrame({"row_id": df["row_id"].values[va], "y_true": y[va],
                           "y_pred": pred, "p_pos": score}).to_csv(RESULTS / "val_preds_tfidf_lr.csv", index=False)
             (RESULTS / "best_tfidf_config.json").write_text(json.dumps(cfg, indent=2))
         print(f"\n{name} best cfg {cfg}\n  CV5 macro-F1 {best.macro_f1_mean:.4f} ± {best.macro_f1_std:.4f}"

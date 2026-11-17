@@ -167,7 +167,7 @@ def main():
                "final_epochs": int(round(np.median(eps)))}
     (RESULTS / "best_bilstm_config.json").write_text(json.dumps(summary, indent=2))
     m, p, _ = res[SEED]
-    pd.DataFrame({"row_id": df["row_id"].values[va], "reviews": X[va], "y_true": y[va],
+    pd.DataFrame({"row_id": df["row_id"].values[va], "y_true": y[va],
                   "y_pred": (p >= 0.5).astype(int), "p_pos": p}).to_csv(RESULTS / "val_preds_bilstm.csv", index=False)
     print(json.dumps(summary, indent=2))
 

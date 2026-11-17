@@ -8,3 +8,8 @@ node_modules/
 .ipynb_checkpoints/
 *.raw
 *.log
+data/
+models/
+results/submission*.csv
+results/val_preds_bilstm.csv
+.pytest_cache/

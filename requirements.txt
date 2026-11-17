@@ -1,0 +1,8 @@
+# Versions these tests and the TF-IDF reproduction were verified with (2026-11-18, Python 3.14).
+# The environment of the original runs was not recorded.
+numpy==2.5.5
+scipy==1.18.1
+pandas==3.1.1
+scikit-learn==1.9.1
+torch==2.15.0
+matplotlib==3.11.2
