@@ -1,3 +1,5 @@
+![Project banner (decorative)](docs/images/banner.svg)
+
 # Product-Review Sentiment Classification: TF-IDF Baselines vs an Attention BiLSTM
 
 Binary sentiment classification of product reviews. Tuned TF-IDF linear models are compared with a bidirectional LSTM
