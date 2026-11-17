@@ -6,12 +6,15 @@ import json
 
 import pandas as pd
 
-from common import DATA_DIR, RESULTS
+from common import DATA_DIR, RESULTS, ensure_dirs
 from preprocessing import group_key
 
 
 def _load(name: str, labelled: bool) -> pd.DataFrame:
     path = DATA_DIR / name
+    if not path.exists():
+        raise FileNotFoundError(f"{path} not found: the course data is not in the repository; "
+                                f"put {name} in {DATA_DIR} or set IE4483_DATA")
     # The files are JSON arrays of objects (verified by inspection), not CSV.
     df = pd.read_json(path, orient="records")
     if "reviews" not in df.columns:
@@ -71,6 +74,7 @@ def profile() -> dict:
     tr_keys = set(tr["reviews"].map(group_key))
     out["test"]["reviews_also_in_train_normalised"] = int(te["reviews"].map(group_key).isin(tr_keys).sum())
     out["test"]["has_labels"] = "sentiments" in te.columns
+    ensure_dirs()
     (RESULTS / "data_profile.json").write_text(json.dumps(out, indent=2))
     return out
 

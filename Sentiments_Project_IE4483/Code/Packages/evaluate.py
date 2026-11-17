@@ -7,7 +7,7 @@ import numpy as np
 from sklearn.metrics import (accuracy_score, confusion_matrix, f1_score,
                              precision_recall_fscore_support, roc_auc_score)
 
-from common import RESULTS
+from common import RESULTS, ensure_dirs
 
 
 def metrics(y_true, y_pred, p_pos=None) -> dict:
@@ -32,6 +32,7 @@ def log_run(model: str, config: dict, m: dict, extra: dict | None = None, file: 
     row.update({k: (round(v, 5) if isinstance(v, float) else v) for k, v in m.items() if k != "confusion_matrix"})
     row["confusion_matrix"] = json.dumps(m.get("confusion_matrix"))
     row.update(extra or {})
+    ensure_dirs()
     path = RESULTS / file
     keys = list(row)
     if path.exists():

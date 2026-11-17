@@ -5,13 +5,18 @@ from pathlib import Path
 
 import numpy as np
 
-PROJECT = Path(__file__).resolve().parents[1]          # sentiment_project/
-DATA_DIR = PROJECT.parent                              # original assignment folder (read-only)
-RESULTS = PROJECT / "results"
-FIGURES = PROJECT / "figures"
-MODELS = PROJECT / "models"
-for d in (RESULTS, FIGURES, MODELS):
-    d.mkdir(exist_ok=True)
+REPO = Path(__file__).resolve().parents[3]             # repository root
+# train.json / test.json are course data and are not in the repository: put them in data/ or point IE4483_DATA at them.
+DATA_DIR = Path(os.environ.get("IE4483_DATA", REPO / "data")).expanduser()
+RESULTS = Path(os.environ.get("IE4483_RESULTS", REPO / "results")).expanduser()
+FIGURES = Path(os.environ.get("IE4483_FIGURES", REPO / "Sentiments_Project_IE4483" / "figures")).expanduser()
+MODELS = Path(os.environ.get("IE4483_MODELS", REPO / "models")).expanduser()   # git-ignored
+
+
+def ensure_dirs() -> None:
+    """Create the output folders. Called by the code that writes, never at import time."""
+    for d in (RESULTS, FIGURES, MODELS):
+        d.mkdir(parents=True, exist_ok=True)
 
 SEED = 42
 SEEDS = [42, 43, 44]

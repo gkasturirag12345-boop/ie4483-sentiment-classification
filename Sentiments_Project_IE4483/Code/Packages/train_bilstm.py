@@ -15,7 +15,7 @@ import torch
 import torch.nn as nn
 from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
 
-from common import RESULTS, SEED, SEEDS, get_device, set_seed
+from common import RESULTS, SEED, SEEDS, get_device, set_seed, ensure_dirs
 from data_loader import load_train
 from evaluate import log_run, metrics
 from preprocessing import tokenize
@@ -120,6 +120,7 @@ def train(tr_text, tr_y, va_text=None, va_y=None, lr=1e-3, hidden=128, seed=SEED
 
 
 def main():
+    ensure_dirs()
     df = load_train()
     tr, va = holdout(df)
     X, y = df["reviews"].values, df["sentiments"].values
@@ -167,7 +168,7 @@ def main():
                "final_epochs": int(round(np.median(eps)))}
     (RESULTS / "best_bilstm_config.json").write_text(json.dumps(summary, indent=2))
     m, p, _ = res[SEED]
-    pd.DataFrame({"row_id": df["row_id"].values[va], "reviews": X[va], "y_true": y[va],
+    pd.DataFrame({"row_id": df["row_id"].values[va], "y_true": y[va],
                   "y_pred": (p >= 0.5).astype(int), "p_pos": p}).to_csv(RESULTS / "val_preds_bilstm.csv", index=False)
     print(json.dumps(summary, indent=2))
 
