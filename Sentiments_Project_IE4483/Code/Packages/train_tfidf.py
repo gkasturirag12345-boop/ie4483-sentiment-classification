@@ -17,7 +17,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import LinearSVC
 
-from common import HOLDOUT_FOLD, RESULTS, SEED, set_seed
+from common import HOLDOUT_FOLD, RESULTS, SEED, set_seed, ensure_dirs
 from data_loader import load_train
 from evaluate import log_run, metrics
 from preprocessing import TOKEN_PATTERN, normalise
@@ -54,6 +54,7 @@ def make_clf(kind: str, p: dict):
 
 
 def main():
+    ensure_dirs()
     set_seed(SEED)
     df = load_train()
     X_text, y = df["reviews"].values, df["sentiments"].values

@@ -14,7 +14,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report
 
-from common import RESULTS, SEED, set_seed
+from common import RESULTS, SEED, set_seed, ensure_dirs
 from data_loader import load_test, load_train
 from evaluate import log_run, metrics
 from splits import get_folds, holdout
@@ -29,6 +29,7 @@ def fit_predict(train_text, y_train, other_text):
 
 
 def main():
+    ensure_dirs()
     set_seed(SEED)
     df, test_df = load_train(), load_test()
     X_text, y = df["reviews"].values, df["sentiments"].values

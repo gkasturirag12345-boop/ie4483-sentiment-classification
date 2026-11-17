@@ -24,7 +24,8 @@ alongside accuracy, and splits keep duplicates together.
 - An attention BiLSTM: additive attention concatenated with max-pooling, packed sequences, and masking so padding
   never affects the output (tested).
 - Results across 3 seeds (mean ± sd), plus a 3-seed ensemble.
-- Every run is logged with its config and metrics (`results/training_log.csv`).
+- TF-IDF runs are logged with their config and metrics (`results/training_log.csv`); the BiLSTM runs are cached
+  in `results/bilstm_runs.pkl` and summarised in `results/model_comparison.csv`.
 
 ## Architecture
 ```mermaid
@@ -94,7 +95,7 @@ What the numbers say:
 - Tuning matters more than the model family. Default TF-IDF + LR finds only 28% of negative reviews; class weights
   and character n-grams raise that to 75%.
 - GloVe initialisation helps the BiLSTM: +0.9 accuracy points over training from scratch on the seed means.
-- The 3-seed GloVe ensemble is the best model. The tuned linear SVM is close behind at a fraction of the cost (0.4 s
+- The 3-seed GloVe ensemble is the best model. The tuned linear SVM is close behind at a fraction of the cost (0.3 s
   of training).
 
 | Confusion matrices | Cross-validation |
@@ -106,6 +107,9 @@ What the numbers say:
   hold-out scores (LR 0.9169 / 0.8385, SVM 0.9270 / 0.8536).
 - The BiLSTM runs were not re-run in this cleanup. Their numbers are the committed results of the original notebook
   runs.
+- `tfidf_baseline.ipynb` (the Part 1 baseline, with its own tokenisation) ran end to end on the course data (31 cells,
+  no errors), giving 0.8932 accuracy and 0.6980 macro-F1 on the hold-out. The table's default row is the shared
+  pipeline in `Packages/` (0.8926 / 0.6874, `training_log.csv`).
 
 ## Limitations
 - One dataset and one hold-out fold for the main comparison. CV scores are in `results/cv5_all_models.csv`.

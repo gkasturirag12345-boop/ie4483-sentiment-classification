@@ -12,11 +12,11 @@ from conftest import CODE, ROOT, synthetic_rows, write_data
 
 
 def test_import_creates_no_folders(tmp_path):
-    out = tmp_path / "never_created"
-    env = {**os.environ, "IE4483_RESULTS": str(out), "IE4483_DATA": str(tmp_path)}
-    subprocess.run([sys.executable, "-c", "import common, evaluate, splits, data_loader"],
+    outs = {k: tmp_path / k for k in ("results", "figures", "models")}
+    env = {**os.environ, "IE4483_DATA": str(tmp_path), **{f"IE4483_{k.upper()}": str(v) for k, v in outs.items()}}
+    subprocess.run([sys.executable, "-c", "import common, evaluate, splits, data_loader, train_tfidf"],
                    cwd=CODE / "Packages", env=env, check=True)
-    assert not out.exists()
+    assert not any(v.exists() for v in outs.values())
 
 
 def test_loader_validates_and_explains_missing_data():

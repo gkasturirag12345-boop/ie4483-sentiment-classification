@@ -15,7 +15,7 @@ import torch
 import torch.nn as nn
 from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
 
-from common import RESULTS, SEED, SEEDS, get_device, set_seed
+from common import RESULTS, SEED, SEEDS, get_device, set_seed, ensure_dirs
 from data_loader import load_train
 from evaluate import log_run, metrics
 from preprocessing import tokenize
@@ -120,6 +120,7 @@ def train(tr_text, tr_y, va_text=None, va_y=None, lr=1e-3, hidden=128, seed=SEED
 
 
 def main():
+    ensure_dirs()
     df = load_train()
     tr, va = holdout(df)
     X, y = df["reviews"].values, df["sentiments"].values

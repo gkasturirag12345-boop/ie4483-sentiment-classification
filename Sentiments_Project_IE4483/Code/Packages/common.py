@@ -9,8 +9,8 @@ REPO = Path(__file__).resolve().parents[3]             # repository root
 # train.json / test.json are course data and are not in the repository: put them in data/ or point IE4483_DATA at them.
 DATA_DIR = Path(os.environ.get("IE4483_DATA", REPO / "data")).expanduser()
 RESULTS = Path(os.environ.get("IE4483_RESULTS", REPO / "results")).expanduser()
-FIGURES = REPO / "Sentiments_Project_IE4483" / "figures"
-MODELS = REPO / "models"                               # git-ignored
+FIGURES = Path(os.environ.get("IE4483_FIGURES", REPO / "Sentiments_Project_IE4483" / "figures")).expanduser()
+MODELS = Path(os.environ.get("IE4483_MODELS", REPO / "models")).expanduser()   # git-ignored
 
 
 def ensure_dirs() -> None:

@@ -1,6 +1,8 @@
 """Tests run without the course data: a small synthetic train.json stands in. Outputs go to a temp folder."""
+import atexit
 import json
 import os
+import shutil
 import sys
 import tempfile
 from pathlib import Path
@@ -8,6 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CODE = ROOT / "Sentiments_Project_IE4483" / "Code"
 _TMP = Path(tempfile.mkdtemp(prefix="ie4483-tests-"))
+atexit.register(shutil.rmtree, _TMP, ignore_errors=True)
 os.environ["IE4483_DATA"] = str(_TMP / "data")          # set before `common` is imported anywhere
 os.environ["IE4483_RESULTS"] = str(_TMP / "results")
 sys.path.insert(0, str(CODE / "Packages"))
